@@ -1,0 +1,79 @@
+digraph PKA {
+    rankdir=LR;
+    node [shape=circle];
+
+    start[shape=point];
+    start->amp;
+    amp[label="&"];
+
+    amp->q0[label="ε"];
+    amp->r0[label="ε"];
+    amp->s0[label="ε"];
+
+    q2[shape=doublecircle];
+    q3[shape=doublecircle];
+    q8[shape=doublecircle];
+    q10[shape=doublecircle];
+    q11[shape=doublecircle];
+    q12[shape=doublecircle];
+    q14[shape=doublecircle];
+    q15[shape=circle];
+
+    q0->q1[label="a"];
+    q0->q2[label="b"];
+    q1->q3[label="a"];
+    q1->q15[label="b"];
+    q2->q4[label="a"];
+    q2->q5[label="b"];
+    q3->q6[label="a"];
+    q3->q5[label="b"];
+    q4->q5[label="a"];
+    q4->q15[label="b"];
+    q5->q15[label="a"];
+    q5->q2[label="b"];
+    q6->q7[label="a"];
+    q6->q2[label="b"];
+    q7->q8[label="a"];
+    q7->q2[label="b"];
+    q8->q9[label="a"];
+    q8->q10[label="b"];
+    q9->q11[label="a"];
+    q9->q2[label="b"];
+    q10->q4[label="a"];
+    q10->q10[label="b"];
+    q11->q12[label="a"];
+    q11->q10[label="b"];
+    q12->q13[label="a"];
+    q12->q10[label="b"];
+    q13->q14[label="a"];
+    q13->q2[label="b"];
+    q14->q14[label="a"];
+    q14->q10[label="b"];
+    q15->q15[label="a"];
+    q15->q15[label="b"];
+
+    r0[shape=doublecircle];
+    r1[shape=doublecircle];
+    r2[shape=doublecircle];
+    r3[shape=circle];
+
+    r0->r1[label="b"];
+    r0->r0[label="a"];
+    r1->r1[label="b"];
+    r1->r2[label="a"];
+    r2->r3[label="b"];
+    r2->r0[label="a"];
+    r3->r3[label="a"];
+    r3->r3[label="b"];
+
+    s0[shape=doublecircle];
+    s1[shape=doublecircle];
+    s2[shape=circle];
+
+    s0->s0[label="a"];
+    s0->s1[label="b"];
+    s1->s2[label="a"];
+    s1->s1[label="b"];
+    s2->s0[label="a"];
+    s2->s1[label="b"];
+}
