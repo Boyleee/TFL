@@ -6,7 +6,7 @@ object FuzzEquivalence extends App {
     Pattern.compile("^(?:aaaaa|aaa)*(?:aa|b)(?:bb|aab)*$")
 
   private val patExt: Pattern =
-    Pattern.compile("^(?=[ab]*$)(?:aaa(?:aa)?)*(?:aa|b)(?:(?:bb|aab)+)?$")
+    Pattern.compile("^(?:a{3}|a{5}|a{6}|a{8,})?(?:aa|b)(?:(?:bb|aab)+)?$")
 
   private def acceptsRegexAcad(s: String): Boolean =
     patAcad.matcher(s).matches()
@@ -15,31 +15,29 @@ object FuzzEquivalence extends App {
     patExt.matcher(s).matches()
 
   private val nfaStart = 0
-  private val nfaAccept: Set[Int] = Set(7)
+  private val nfaAccept: Set[Int] = Set(6)
 
   private val nfaTrans: Map[(Int, Char), Set[Int]] = Map(
-    (0, 'a') -> Set(1),
+    (0, 'a') -> Set(1, 5),
+    (0, 'b') -> Set(6),
+
     (1, 'a') -> Set(2),
-    (2, 'a') -> Set(3),
+    (2, 'a') -> Set(0, 3),
     (3, 'a') -> Set(4),
     (4, 'a') -> Set(0),
 
-    (5, 'b') -> Set(7),
     (5, 'a') -> Set(6),
-    (6, 'a') -> Set(7),
 
-    (7, 'b') -> Set(8),
-    (8, 'b') -> Set(7),
+    (6, 'b') -> Set(7),
+    (7, 'b') -> Set(6),
 
-    (7, 'a') -> Set(9),
-    (9, 'a') -> Set(10),
-    (10, 'b') -> Set(7)
+    (6, 'a') -> Set(8),
+    (8, 'a') -> Set(9),
+    (9, 'b') -> Set(6)
   )
 
-  private val nfaEps: Map[Int, Set[Int]] = Map(
-    3 -> Set(0),
-    0 -> Set(5)
-  )
+  private val nfaEps: Map[Int, Set[Int]] = Map.empty
+
 
   private def epsClosure(states: Set[Int]): Set[Int] = {
     val stack = collection.mutable.Stack[Int]()
